@@ -1,5 +1,5 @@
 export const particlesOptions = {
-  fps_limit: 60,
+  fps_limit: 80,
   interactivity: {
     detect_on: "window",
     events: {
