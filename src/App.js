@@ -5,6 +5,7 @@ import { loadFull } from "tsparticles";
 import { tsParticles } from "tsparticles-engine";
 import { particlesOptions } from './ParticleOptions';
 import Navigation from './components/Navigation/Navigation';
+import SignIn from "./components/SignIn/SignIn";
 import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -40,7 +41,6 @@ calculateFaceLocation = (data) => {
   const image = document.getElementById('inputimage');
   const width = Number(image.width);
   const height = Number(image.height);
-  console.log(height, width);
   return {
     leftCol: clarifaiFace.left_col * width,
     topRow: clarifaiFace.top_row * height,
@@ -78,6 +78,7 @@ onButtonSubmit = () => {
           options={particlesOptions} 
         />
         <Navigation />
+        <SignIn />
         <Logo />
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/> 
