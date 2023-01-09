@@ -58,10 +58,23 @@ app.get('/profile/:id', (req, res) => {
       found = true;
       return res.json(user);
     }
+  })
     if(!found) {
       return res.status(400).json('error logging in');
      }
+})
+
+app.put('/image', (req, res) => {
+  const { id } = req.body;
+  let found = false;
+  database.users.forEach(user => {
+    if(user.id === id){
+      found = true;
+      user.entries++
+      return res.json(user.entries)
+    }
   })
+  if(!found) return res.send(400).json('error updating entries')
 })
 
 app.listen(3000, () => {
