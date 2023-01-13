@@ -1,8 +1,19 @@
-import React from 'react'
+import React, {Component} from 'react'
 
-const SignIn = ({ onRouteChange }) => {
-  return (
-    <article className="br2 ba b--black-10 mv4 w-100 w-50-m w-25-l shadow-5 mw6 center"> 
+class SignIn extends Component {
+  constructor(){
+    super();
+    this.state = {
+      SignInEmail: '',
+      SignInPassword: ''
+    }
+  }
+
+  render(){
+    const { onRouteChange } = this.props;
+    return (
+      <form>
+      <article className="br2 ba b--black-10 mv4 w-100 w-50-m w-25-l shadow-5 mw6 center"> 
       <main className="pa4 black-80">
         <div className="measure">
           <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
@@ -29,7 +40,10 @@ const SignIn = ({ onRouteChange }) => {
         </div>
       </main>
     </article>
-  )
+    </form>
+    );
+  }
+
 }
 
 export default SignIn;
