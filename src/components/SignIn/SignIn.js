@@ -4,10 +4,12 @@ class SignIn extends Component {
   constructor(){
     super();
     this.state = {
-      SignInEmail: '',
-      SignInPassword: ''
+      signInEmail: '',
+      signInPassword: ''
     }
   }
+
+  //TODO -> write methods for updating state from user input for signInEmail and signInPassword
 
   render(){
     const { onRouteChange } = this.props;
