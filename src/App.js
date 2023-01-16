@@ -97,6 +97,7 @@ onRouteChange = (route) => {
 
   render (){
     const {imageUrl, box, route, isSignedIn} = this.state;
+    const {name, entries} = this.state.user;
     return (
       <div>
         <Particles 
@@ -105,17 +106,17 @@ onRouteChange = (route) => {
           init={particlesInit} 
           options={particlesOptions} 
         />
-        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn}/>
+        <Navigation onRouteChange={this.onRouteChange} isSignedIn={isSignedIn} />
         { route === 'home' 
           ? <>
           <Logo />
-          <Rank />
-          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/> 
-          <FaceRecognition box={box} imageUrl={imageUrl}/> 
+          <Rank userName={name} userEntries={entries} />
+          <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} /> 
+          <FaceRecognition box={box} imageUrl={imageUrl} /> 
           </>
           : (
             route === 'signin'
-          ? <SignIn onRouteChange={this.onRouteChange} />
+          ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
           : <Register loadUser={this.loadUser}          onRouteChange={this.onRouteChange} />
           )
        }
