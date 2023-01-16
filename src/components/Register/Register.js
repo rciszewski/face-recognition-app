@@ -22,9 +22,24 @@ class Register extends Component {
     this.setState({password: event.target.value});
   } 
 
-  onRegisterSubmit = (event) => {
+  onSubmitRegister = (event) => {
     event.preventDefault();
-    this.props.onRouteChange('home');
+    fetch('http://localhost:3000/register', {
+      method: 'post',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then(response => response.json())
+      .then(user => {
+        if(user){
+          console.log(user);
+          this.props.onRouteChange('home');
+        }
+      })
   }
 
   render(){
@@ -68,7 +83,7 @@ class Register extends Component {
             </fieldset>
             <div className="center">
               <input
-                onClick={this.onRegisterSubmit} 
+                onClick={this.onSubmitRegister} 
                 className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib pointer" 
                 type="submit" 
                 value="Register" />
