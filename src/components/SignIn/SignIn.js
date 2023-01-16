@@ -1,15 +1,21 @@
 import React, {Component} from 'react'
 
 class SignIn extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       signInEmail: '',
       signInPassword: ''
     }
   }
+//TODO -> write methods for updating state from user input for signInEmail and signInPassword
+  onEmailChange = (event) => {
+    this.setState({signInEmail: event.target.value});
+  }
 
-  //TODO -> write methods for updating state from user input for signInEmail and signInPassword
+  onPasswordChange = (event) => {
+    this.setState({signInPassword: event.target.value});
+  }
 
   render(){
     const { onRouteChange } = this.props;
@@ -22,16 +28,31 @@ class SignIn extends Component {
             <legend className="f1 fw6 ph0 mh0 center">Sign In</legend>
             <div className="mt3">
               <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-              <input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address" />
+              <input 
+                className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                type="email" 
+                name="email-address"  
+                id="email-address"
+                onChange={this.onEmailChange} 
+              />
             </div>
             <div className="mv3">
               <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-              <input className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password" />
+              <input 
+                className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" 
+                type="password" 
+                name="password"  
+                id="password" 
+                onChange={this.onPasswordChange}
+              />
             </div>
           </fieldset>
           <div className="center">
             <input
-              onClick={() => onRouteChange('home')} 
+              onClick={() => {
+                console.log(this.state);
+                onRouteChange('home')}
+              } 
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib pointer" 
               type="submit" 
               value="Sign in" />

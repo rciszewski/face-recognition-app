@@ -90,9 +90,9 @@ app.put('/image', (req, res) => {
   if(!found) return res.send(400).json('error updating entries')
 })
 
-bcrypt.hash("bacon", null, null, function(err, hash) {
-  // Store hash in your password DB.
-});
+// bcrypt.hash("bacon", null, null, function(err, hash) {
+//   // Store hash in your password DB.
+// });
 
 // // Load hash from your password DB.
 // bcrypt.compare("bacon", hash, function(err, res) {
