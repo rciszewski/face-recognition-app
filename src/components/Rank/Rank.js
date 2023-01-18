@@ -4,7 +4,7 @@ const Rank = ({userName, userEntries}) => {
   return (
     <div className="center flex flex-column">
       <div className="center white f3">
-        {`${userName}, your current rank is...`}
+        {`${userName}, your current entry count is...`}
       </div>
       <div className=" center white f1">
         {`${userEntries}`}
