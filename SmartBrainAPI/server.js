@@ -14,10 +14,6 @@ const db = knex({
   }
 });
 
-db.select('*').from('users').then(data => {
-  console.log(data);
-});
-
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -86,21 +82,26 @@ app.post('/register', (req, res) => {
 app.get('/profile/:id', (req, res) => {
   const {id} = req.params; 
   db.select('*').from('users').where({id})
-    .then(user => res.json(user[0]))
-    .catch(res.status(400).json('error getting user'))
+    .then(user => {
+      if(user.length){
+        res.json(user[0])
+      } else {
+        res.status(400).json('Not found')
+      }
+    })
+    .catch(err => res.status(400).json('error getting user'))
 })
 
 app.put('/image', (req, res) => {
   const { id } = req.body;
-  let found = false;
-  database.users.forEach(user => {
-    if(user.id === id){
-      found = true;
-      user.entries++
-      return res.json(user.entries)
-    }
+  db('users').where('id', '=', id)
+  .increment('entries', 1)
+  .returning('entries')
+  .then(entries => {
+    console.log(entries[0].entries)
+    res.json(entries[0].entries)
   })
-  if(!found) return res.send(400).json('error updating entries')
+  .catch(err => res.status(400).json('error updating entries'))
 })
 
 // bcrypt.hash("bacon", null, null, function(err, hash) {
