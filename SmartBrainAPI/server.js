@@ -20,11 +20,7 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
-  db.select('*').from('users')
-    .then(users => {
-      res.send(users);
-    })
-    .catch(err => res.status(400).json('unable to get users'))
+  res.send('success');
 })
 
 app.post('/signin', (req, res) => {

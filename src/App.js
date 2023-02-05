@@ -22,24 +22,25 @@ const particlesInit = async (main) => {
   await loadFull(tsParticles);
 };
 
+const initialState = {
+    imageUrl: '',
+    input: '',
+    box: {},
+    route: 'signin',
+    isSignedIn: false,
+    user: {
+      id: '',
+      name: '',
+      email: '',
+      entries: 0,
+      joined: ''
+    }
+  }
+
 class App extends Component {
   constructor(){
     super();
-    this.state = {
-      imageUrl: '',
-      input: '',
-      box: {},
-      route: 'signin',
-      isSignedIn: false,
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        entries: 0,
-        joined: ''
-
-      }
-    }
+    this.state = initialState;
   }
 
 loadUser = (data) => {
@@ -96,8 +97,8 @@ onButtonSubmit = () => {
         .then(response => response.json())
         .then(entryCount => {
           this.setState(Object.assign(this.state.user, {entries: entryCount}))
-          console.log(this.state);
         })
+        .catch(err => console.log(err))
       }
       this.displayFaceBox(this.calculateFaceLocation(response))
     })
@@ -106,9 +107,9 @@ onButtonSubmit = () => {
 
 onRouteChange = (route) => {
   if (route === 'home'){
-    this.setState({isSignedIn: true})
+    this.setState({isSignedIn: true});
   } else {
-    this.setState({isSignedIn: false})
+    this.setState(initialState);
   }
   this.setState({route: route});
 }
@@ -135,7 +136,7 @@ onRouteChange = (route) => {
           : (
             route === 'signin'
           ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
-          : <Register loadUser={this.loadUser}          onRouteChange={this.onRouteChange} />
+          : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange} />
           )
        }
       </div>
