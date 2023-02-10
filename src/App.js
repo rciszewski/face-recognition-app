@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import Particles from "react-tsparticles";
-import Clarifai from 'clarifai';
 import { loadFull } from "tsparticles";
 import { tsParticles } from "tsparticles-engine";
 import { particlesOptions } from './ParticleOptions';
@@ -13,9 +12,7 @@ import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import './App.css';
 
-const app = new Clarifai.App({
-  apiKey: '5f7089c95a9a46e2a37c402e60dd41fd'
-});
+
 
 //Load particles background from tsParticles package
 const particlesInit = async (main) => {
@@ -80,28 +77,31 @@ onInputChange = (event) => {
 
 onButtonSubmit = () => {
   this.setState({imageUrl: this.state.input});
-
-  app.models.predict(
-    // Clarifai.FACE_DETECT_MODEL
-    {id: "a403429f2ddf4b49b307e318f00e528b",
-    version: "34ce21a40cc24b6b96ffee54aabff139"}, this.state.input)
-    .then(response => {
-      if(response){
-        fetch('http://localhost:3000/image', {
-          method: 'put',
+    fetch('http://localhost:3000/imageurl', {
+          method: 'post',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
-            id: this.state.user.id
+            input: this.state.input
           })
         })
         .then(response => response.json())
-        .then(entryCount => {
-          this.setState(Object.assign(this.state.user, {entries: entryCount}))
-        })
-        .catch(err => console.log(err))
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response))
-    })
+        .then(response => {
+          if(response){
+            fetch('http://localhost:3000/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: this.state.user.id
+            })
+          })
+            .then(response => response.json())
+            .then(entryCount => {
+              this.setState(Object.assign(this.state.user, {entries: entryCount}))
+            })
+          .catch(err => console.log(err))
+          }
+        this.displayFaceBox(this.calculateFaceLocation(response))
+      })
     .catch(err => console.log(err))
 }
 
