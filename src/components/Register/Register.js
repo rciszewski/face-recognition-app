@@ -22,9 +22,11 @@ class Register extends Component {
     this.setState({password: event.target.value});
   } 
 
+  //http://localhost:3000/register
+
   onSubmitRegister = (event) => {
     event.preventDefault();
-    fetch('http://localhost:3000/register', {
+    fetch('https://face-recognition-api-7dxl.onrender.com', {
       method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
