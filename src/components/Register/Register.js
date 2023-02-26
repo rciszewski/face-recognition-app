@@ -36,6 +36,7 @@ class Register extends Component {
     })
       .then(response => response.json())
       .then(data => console.log(data))
+      .catch(err => console.log(err))
       // .then(user => {
       //   if(user.id){
       //     this.props.loadUser(user);
