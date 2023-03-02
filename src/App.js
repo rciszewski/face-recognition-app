@@ -101,6 +101,7 @@ onButtonSubmit = () => {
           .catch(err => console.log(err))
           }
         this.displayFaceBox(this.calculateFaceLocation(response))
+        this.setState({imageUrl: ''});
       })
     .catch(err => console.log(err))
 }
