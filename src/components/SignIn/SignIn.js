@@ -71,7 +71,7 @@ class SignIn extends Component {
               onClick={this.onSubmitSignIn} 
               className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib pointer" 
               type="submit" 
-              value="Sign in" />
+              value="submit" />
           </div>
           <div className="lh-copy mt3 center">
             <p onClick={() => onRouteChange('register')} className="f5 link dim black db pointer">Register</p>
